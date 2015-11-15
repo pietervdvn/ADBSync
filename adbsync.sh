@@ -1,12 +1,12 @@
 #! /bin/bash
 
 # the source file, from which everything gets copied
-SOURCE="/home/pietervdvn/Music/"
+SOURCE="/home/rien/Music/"
 # the destination file on the device
-DEST="/storage/sdcard1/Music/"
+DEST="/storage/sdcard0/Music"
 
 CUT=`echo $SOURCE | wc -c`
-FILES=`find -L "$SOURCE" -type f | cut -b $CUT-`
+FILES=`find -L "$SOURCE" -not -path "*./*" -not -name ".*" -type f | cut -b $CUT-`
 IFS=$'\n'
 let "COUNT=0"
 let "TOTAL=0"
