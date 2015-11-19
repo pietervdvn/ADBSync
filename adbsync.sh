@@ -1,15 +1,17 @@
 #! /bin/bash
 
-
 SOURCE="$1"
 DEST="$2"
 
-if [[ `whoami` == "pietervdvn"  && $# -eq 0 ]]
+if [[ `whoami` == "rein"  && $# -eq 0 ]]
+then
+	echo "Using settings for rien's machine"
+	SOURCE="/home/rien/Music/"
+	DEST="/storage/sdcard0/Music"
+elif [[ `whoami` == "pietervdvn"  && $# -eq 0 ]]
 then
 	echo "Using settings for pietervdvn's machine"
-	# the source file, from which everything gets copied
 	SOURCE="/home/pietervdvn/Music/"
-	# the destination file on the device
 	DEST="/storage/sdcard1/Music/"
 elif [[ $# -lt 2 ]]
 then
@@ -23,7 +25,7 @@ echo "Copying from $SOURCE to $DEST"
 
 
 CUT=`echo $SOURCE | wc -c`
-FILES=`find -L "$SOURCE" -type f | cut -b $CUT-`
+FILES=`find -L "$SOURCE" -not -path "*./*" -not -name ".*" -type f | cut -b $CUT-`
 IFS=$'\n'
 let "COUNT=0"
 let "TOTAL=0"
